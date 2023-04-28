@@ -1,7 +1,7 @@
 ﻿/* Open-Closed
  * Open for Extension, Closed for Modification
- * you should not change the method or class instead of this,
- * you should be able create new classes or method without modified old one
+ * you should not change the method or class ,
+ * you should be able create new classes or methods without modifying old ones
  * 
  */
 
@@ -90,4 +90,44 @@ public class RecurringInvoice : Invoice
     {
         return base.GetInvoiceDiscount(amount) - 30;
     }
+}
+
+
+//Another Example
+
+abstract class BaseCar
+{
+    public int TripMil { get; set; }
+    public abstract double GetCostPerMil();
+}
+
+class Bmw : BaseCar
+{
+    
+    public override double GetCostPerMil()
+    {
+        return 1.5;
+    }
+}
+
+class Mercedes : BaseCar
+{
+    public override double GetCostPerMil()
+    {
+        return 2;
+    }
+}
+
+class FuelCalculator
+{
+    public double Calculate(BaseCar car)
+    {
+        /* this example violates Open-closed principle , that is why we used abstraction
+         * if(car is mercedes)
+         *      return 2 * car.TripMil();
+         *  if(car is Bmw)
+         *      return 1.5 * car.TripMil();
+         */
+        return car.GetCostPerMil() * car.TripMil;
+    } 
 }
